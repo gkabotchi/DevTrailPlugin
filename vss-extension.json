@@ -1,0 +1,35 @@
+{
+  "manifestVersion": 1,
+  "id": "devtrail",
+  "publisher": "abotchi-koassi",
+  "version": "0.1.2",
+  "name": "DevTrail",
+  "description": "A developer's trail on every work item — log blockers, solutions and progress as styled markdown cards.",
+  "public": false,
+  "categories": ["Azure Boards"],
+  "tags": ["history", "log", "journal", "work item", "markdown", "comments", "tracking"],
+  "targets": [{ "id": "Microsoft.VisualStudio.Services" }],
+  "icons": { "default": "static/img/logo.png" },
+  "content": {
+    "details": { "path": "overview.md" }
+  },
+  "scopes": ["vso.work_write"],
+  "demands": ["api-version/5.1"],
+  "contributions": [
+    {
+      "id": "devtrail-form-group",
+      "type": "ms.vss-work-web.work-item-form-group",
+      "description": "DevTrail history section on the work item form",
+      "targets": ["ms.vss-work-web.work-item-form"],
+      "properties": {
+        "name": "DevTrail",
+        "uri": "dist/DevTrail/DevTrail.html",
+        "height": 620
+      }
+    }
+  ],
+  "files": [
+    { "path": "dist", "addressable": true },
+    { "path": "static", "addressable": true }
+  ]
+}

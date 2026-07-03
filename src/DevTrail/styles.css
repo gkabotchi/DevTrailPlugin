@@ -1,0 +1,162 @@
+/* DevTrail — styled to sit naturally inside the Azure DevOps work item form.
+   Card design mirrors the native update-history cards: colored left border,
+   icon, "by author at date" line, then the body. */
+
+:root {
+  --dt-text: #201f1e;
+  --dt-text-soft: #605e5c;
+  --dt-border: #edebe9;
+  --dt-bg-soft: #faf9f8;
+  --dt-primary: #0078d4;
+  --dt-radius: 4px;
+  --dt-font: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--dt-font);
+  font-size: 14px;
+  color: var(--dt-text);
+  background: transparent;
+}
+
+.dt-root { display: flex; flex-direction: column; gap: 12px; padding: 4px 2px 8px; }
+
+.dt-state { color: var(--dt-text-soft); font-style: italic; padding: 8px 2px; }
+.dt-state--error { color: #a4262c; }
+.dt-gate {
+  color: var(--dt-text-soft);
+  background: var(--dt-bg-soft);
+  border: 1px solid var(--dt-border);
+  border-radius: var(--dt-radius);
+  padding: 8px 12px;
+}
+
+/* ---------- Cards ---------- */
+
+.dt-feed { display: flex; flex-direction: column; gap: 10px; }
+
+.dt-card {
+  background: #fff;
+  border: 1px solid var(--dt-border);
+  border-left: 4px solid #107c10; /* overridden inline per tag */
+  border-radius: var(--dt-radius);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 10px 14px;
+}
+
+.dt-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.dt-card__icon { font-size: 14px; }
+.dt-card__tag { font-weight: 600; letter-spacing: 0.02em; }
+.dt-card__meta { color: var(--dt-text-soft); font-size: 12px; }
+
+.dt-card__body { line-height: 1.5; overflow-wrap: anywhere; }
+.dt-card__body h1, .dt-card__body h2, .dt-card__body h3 { margin: 10px 0 4px; font-size: 15px; }
+.dt-card__body p { margin: 6px 0; }
+.dt-card__body img { max-width: 100%; border-radius: var(--dt-radius); }
+.dt-card__body pre {
+  background: var(--dt-bg-soft);
+  border: 1px solid var(--dt-border);
+  border-radius: var(--dt-radius);
+  padding: 8px 10px;
+  overflow-x: auto;
+}
+.dt-card__body code { font-family: Consolas, "Courier New", monospace; font-size: 13px; }
+.dt-card__body blockquote {
+  margin: 6px 0;
+  padding: 2px 10px;
+  border-left: 3px solid var(--dt-border);
+  color: var(--dt-text-soft);
+}
+.dt-card__body table { border-collapse: collapse; }
+.dt-card__body th, .dt-card__body td { border: 1px solid var(--dt-border); padding: 4px 8px; }
+
+/* ---------- Composer ---------- */
+
+.dt-composer {
+  background: #fff;
+  border: 1px solid var(--dt-border);
+  border-left: 4px solid #107c10; /* follows selected tag */
+  border-radius: var(--dt-radius);
+  padding: 10px 12px;
+}
+
+.dt-composer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dt-composer__tag {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 4px 6px;
+  border: 1px solid var(--dt-border);
+  border-radius: var(--dt-radius);
+  background: #fff;
+}
+
+.dt-composer__tabs { display: flex; gap: 2px; }
+.dt-composer__tabs button {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 4px 10px;
+  border: none;
+  background: transparent;
+  color: var(--dt-text-soft);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.dt-composer__tabs button.is-active {
+  color: var(--dt-text);
+  border-bottom-color: var(--dt-primary);
+  font-weight: 600;
+}
+.dt-composer__tabs button:focus-visible { outline: 2px solid var(--dt-primary); }
+
+.dt-composer__input {
+  width: 100%;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid var(--dt-border);
+  border-radius: var(--dt-radius);
+  padding: 8px 10px;
+  resize: vertical;
+}
+.dt-composer__input:focus-visible { outline: 2px solid var(--dt-primary); }
+
+.dt-composer__preview {
+  min-height: 96px;
+  border: 1px dashed var(--dt-border);
+  border-radius: var(--dt-radius);
+  padding: 8px 10px;
+}
+
+.dt-composer__actions { display: flex; justify-content: flex-end; margin-top: 8px; }
+
+.dt-btn-primary {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--dt-primary);
+  border: none;
+  border-radius: var(--dt-radius);
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.dt-btn-primary:hover:not(:disabled) { background: #106ebe; }
+.dt-btn-primary:disabled { opacity: 0.5; cursor: default; }
+.dt-btn-primary:focus-visible { outline: 2px solid #005a9e; outline-offset: 1px; }
