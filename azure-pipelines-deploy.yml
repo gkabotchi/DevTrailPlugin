@@ -1,0 +1,39 @@
+name: DevTrail-CD
+
+# Don't trigger on code commits — trigger when the CI pipeline completes
+trigger: none
+
+resources:
+  pipelines:
+    - pipeline: ci               # local alias used below
+      source: DevTrail-CI        # must match the CI pipeline's name in ADO
+      trigger:
+        branches:
+          include:
+            - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- deployment: PublishToMarketplace
+  environment: 'marketplace'      # enables approval gates + history
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - download: ci            # pulls the artifact from the CI run
+          artifact: vsix
+
+        - task: TfxInstaller@4
+          inputs:
+            version: 'v0.x'
+          displayName: 'Install tfx-cli'
+
+        - task: PublishAzureDevOpsExtension@4
+          inputs:
+            connectTo: 'VsTeam'
+            connectedServiceName: 'marketplace-connection'
+            fileType: 'vsix'
+            vsixFile: '$(Pipeline.Workspace)/ci/vsix/*.vsix'
+          displayName: 'Publish to Marketplace'
